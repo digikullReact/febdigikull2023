@@ -119,8 +119,6 @@ fs.writeFileSync("demo.txt","hello world")
 fs.appendFileSync("demo.txt","hello world"+os.EOL)
 
 fs.unlinkSync("demo.txt")
-*/
-
 
 console.log(fs.readFileSync("data.txt","utf-8")) // blocking operation
 fs.writeFileSync("demo.txt","hello world")
@@ -129,3 +127,17 @@ fs.appendFileSync("demo.txt","hello world"+os.EOL)
 
 fs.unlinkSync("demo.txt")
 console.log("helo post all operations on file---")
+*/
+
+
+
+// Directory reading ---->
+// You have to write a function that recursively reads the directory 
+const mainDir="directory"
+fs.readdir(mainDir,(err,data)=>{
+    for (let i=0;i<data.length;i++){
+        console.log(fs.lstatSync(`${mainDir}/${data[i]}`).isDirectory() )
+        // if its a directory then you have to recursively read it again
+    }
+  
+})
