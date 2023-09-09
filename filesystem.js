@@ -66,8 +66,6 @@ ReadFilePromise("data.txt").then(data=>{
 }).catch(err=>{
     console.log(err);
 })
-*/
-
 fsPromise.writeFile("data.txt","hello world").then(data=>{
    // console.log("hey-----",data);
 }).catch(err=>{
@@ -87,7 +85,7 @@ setTimeout(()=>{
 
 
 fsPromise.appendFile("data.txt","hello world"+os.EOL).then(data=>{
-    console.log(data);
+    console.log("heyy",data);
 
 }).catch(err=>{
     console.log(err);
@@ -99,3 +97,35 @@ fsPromise.unlink("data.txt").then(data=>{
 }).catch(err=>{
     console.log(err);
 })
+*/
+
+
+
+/*
+fs.readFile("data.txt","utf-8",(err,data)=>{
+    if (err){
+        console.log("Errror",err);
+        return;
+    }
+    console.log(data);
+
+})
+console.log(9999);
+
+console.log(fs.readFileSync("data.txt","utf-8")) // blocking operation
+console.log("helo post reading file---")
+fs.writeFileSync("demo.txt","hello world")
+
+fs.appendFileSync("demo.txt","hello world"+os.EOL)
+
+fs.unlinkSync("demo.txt")
+*/
+
+
+console.log(fs.readFileSync("data.txt","utf-8")) // blocking operation
+fs.writeFileSync("demo.txt","hello world")
+
+fs.appendFileSync("demo.txt","hello world"+os.EOL)
+
+fs.unlinkSync("demo.txt")
+console.log("helo post all operations on file---")
