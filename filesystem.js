@@ -140,6 +140,7 @@ function Recursive(mainDir){
 
   let data=  fs.readdirSync(mainDir)
     for (let i=0;i<data.length;i++){
+        console.log(fs.statSync(`${mainDir}/${data[i]}`))
         if(fs.lstatSync(`${mainDir}/${data[i]}`).isDirectory()){
             Recursive(`${mainDir}/${data[i]}`)
         }else{
