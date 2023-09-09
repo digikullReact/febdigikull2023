@@ -134,10 +134,21 @@ console.log("helo post all operations on file---")
 // Directory reading ---->
 // You have to write a function that recursively reads the directory 
 const mainDir="directory"
-fs.readdir(mainDir,(err,data)=>{
+
+let directoryArray=[];
+function Recursive(mainDir){
+
+  let data=  fs.readdirSync(mainDir)
     for (let i=0;i<data.length;i++){
-        console.log(fs.lstatSync(`${mainDir}/${data[i]}`).isDirectory() )
-        // if its a directory then you have to recursively read it again
+        if(fs.lstatSync(`${mainDir}/${data[i]}`).isDirectory()){
+            Recursive(`${mainDir}/${data[i]}`)
+        }else{
+            directoryArray.push(data[i])
+        }
+      
     }
-  
-})
+
+}
+
+Recursive(mainDir)
+console.log(directoryArray);
