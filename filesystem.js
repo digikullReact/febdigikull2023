@@ -1,6 +1,7 @@
 const fs=require("fs");
 const fsPromise=require("fs/promises");
 const os=require("os");
+const eventObject=require("./events");
 /*
 fs.readFile("/Users/shubhpro/Desktop/rec.mov","utf-8",(err,data)=>{
     if (err){
@@ -134,7 +135,6 @@ console.log("helo post all operations on file---")
 // Directory reading ---->
 // You have to write a function that recursively reads the directory 
 const mainDir="directory"
-
 let directoryArray=[];
 function Recursive(mainDir){
 
@@ -152,4 +152,5 @@ function Recursive(mainDir){
 }
 
 Recursive(mainDir)
-console.log(directoryArray);
+eventObject.emit("fileRead",directoryArray)
+//console.log(directoryArray);
