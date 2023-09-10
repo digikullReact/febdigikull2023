@@ -13,5 +13,16 @@ eventObject.on("fileRead",(data)=>{
     // or you can d
 })
 
+/**
+ * 1. **Basic Event Creation and Listening**:
+    - Create a custom event emitter that emits a `greet` event. Attach a
+     listener to this event to print "Hello, World!" when the event is triggered.
+ */
+     eventObject.on("greet",(data)=>{
+        console.log(`Hi ${data["name"]}, ${data.age}`);
+     })
+
+     eventObject.emit("greet",{name:"shubham",age:20});
+
 
 module.exports=eventObject;
