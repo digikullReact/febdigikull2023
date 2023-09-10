@@ -120,7 +120,10 @@ for (let i=0;i<10;i++){
 
   })
 
-
+async function foo(){
+  console.log(await promise)
+}
+foo()
   promise.then(data=>{
     console.log("Data from promise",data)
   }).catch(err=>{
