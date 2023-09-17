@@ -103,7 +103,83 @@ const listener=(req,res)=>{
                 break;
          }
     }
+    else if(req.method=="PUT"){
+        switch (req.url) {
+            case "/data":
+                 let body="";
+                 req.on("data",(chunk)=>{
+                    body=body+chunk;
+                 })
+
+                 req.on("end",()=>{
+                    //console.log(body.toString());
+                    const obj2=JSON.parse(body.toString());
+
+                    fs.readFile("db.json","utf-8",(err,data)=>{
+                        if (err){
+                            res.end("Error reading file");
+                            return
+                        }
+
+                        if(data.length>0){
+                            // data is there 
+                            const obj=JSON.parse(data);
+
+                            // IF the email is already there 
+
+                             const filetred=obj.find(ele=>ele.email==obj2.email);
+                             if (!filetred){
+                                console.log(obj);
+                            obj.push(JSON.parse(body.toString()))
+                            const writeData=JSON.stringify(obj)
+                            fs.writeFile("db.json",writeData,(err,data)=>{
+                                res.end("Data  Added");
+        
+                            })
+                               return;
+                             }else{
+                                const obj=JSON.parse(data);
+
+                                // Removing the already existing data
+                                const filtered=obj.filter(ele=>ele.email!=obj2.email);
+                                filtered.push(obj2);
+                                const writeData=JSON.stringify(filtered)
+                            fs.writeFile("db.json",writeData,(err,data)=>{
+                                res.end("Data  Updated");
+        
+                            })
+                               return;
+                             }
+
+
+                        }else{
+                            const writeData=JSON.stringify([JSON.parse(body.toString())])
+                            fs.appendFile("db.json",writeData,(err,data)=>{
+                                res.end("Data Added");
+        
+                            })
+                        }
+                    })
+
+
+                 
+                   
+                 })
+
+    
+                
+                break;
+            
+
+              
      
+         
+            default:
+                res.end("404 Not Found")
+    
+                break;
+         }
+    }     
    
 
 }
