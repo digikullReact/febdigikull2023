@@ -81,6 +81,22 @@ app.get("/jsonurl",(req,res)=>{
 // And as per the query params it sends the htmlpage
 // if page query param = home --->render home page and so on
 
+app.get("/url",(req,res)=>{
+    const page=req.query["page"];
+   // res.sendFile(path.join(__dirname,`${page}.html`));
+
+   res.redirect(`/${page}`);
+
+    
+
+
+    
+})
+// it should be at the bottom most level
+app.get("*",(req,res)=>{
+    res.send("404 Not found");
+})
+
 app.listen(8090,()=>{
     console.log("Server Running on port 8090")
 })
