@@ -24,11 +24,62 @@ console.log(__dirname);
   res.sendFile(path.join(__dirname,"home.html"));
 
 })
+app.get("/contact",(req,res)=>{
+    console.log(__dirname);
+      res.sendFile(path.join(__dirname,"contact.html"));
+    
+    })
+    app.get("/about",(req,res)=>{
+        console.log(__dirname);
+          res.sendFile(path.join(__dirname,"about.html"));
+        
+        })
 
 // build a simple website with 
 // about page
 // home page
 // contact us page
+
+
+// For sending the json response
+
+app.get("/json",(req,res)=>{
+    res.json({
+        name:"Shubham"
+    })
+})
+
+// How to get the request parameters
+
+
+
+// Path params
+app.get("/jsondata/:id/:data",(req,res)=>{
+    const idRequest=req.params["id"];
+    const dataRequest=req.params["data"];
+
+    res.json({
+        params:idRequest,
+        dataRequest
+    })
+})
+
+//Query Parameters
+app.get("/jsonurl",(req,res)=>{
+    const name=req.query["name"];
+    const city=req.query["city"];
+
+
+    res.json({
+        params:name,
+        city
+    })
+})
+
+// The question for you is 
+//Write a route that accepts query parameters
+// And as per the query params it sends the htmlpage
+// if page query param = home --->render home page and so on
 
 app.listen(8090,()=>{
     console.log("Server Running on port 8090")
