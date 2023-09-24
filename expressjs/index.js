@@ -2,6 +2,8 @@ const express=require("express");
 const fs=require("fs");
 const path=require("path");
 const app=express();
+const {create}=require("./repository/db");
+app.use(express.json());  // middleware to parse the data coming from user in req body
 app.get("/",(req,res)=>{
     // You can send text response
     res.send("hello world");
@@ -91,11 +93,40 @@ app.get("/url",(req,res)=>{
 
 
     
+
+
+
+})
+
+
+
+// Crud operations ------->
+app.post("/crud",(req,res)=>{
+    const data =req.body;
+    console.log("Data post body",data);
+    create(data)
+    res.json({
+        message:"success"
+    })
+
+})
+
+app.get("/crud",(req,res)=>{
+    
+})
+
+app.put("/crud",(req,res)=>{
+    
+})
+
+app.delete("/crud",(req,res)=>{
+    
 })
 // it should be at the bottom most level
 app.get("*",(req,res)=>{
     res.send("404 Not found");
 })
+
 
 app.listen(8090,()=>{
     console.log("Server Running on port 8090")
