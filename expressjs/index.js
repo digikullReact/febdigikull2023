@@ -2,7 +2,9 @@ const express=require("express");
 const fs=require("fs");
 const path=require("path");
 const app=express();
-const {create}=require("./repository/db");
+const {create,createPromise, GetPromise,DeletePromise}=require("./repository/db");
+const { v4: uuidv4 } = require('uuid');
+
 app.use(express.json());  // middleware to parse the data coming from user in req body
 app.get("/",(req,res)=>{
     // You can send text response
@@ -104,6 +106,7 @@ app.get("/url",(req,res)=>{
 app.post("/crud",(req,res)=>{
     const data =req.body;
     console.log("Data post body",data);
+    data.id=uuidv4(); 
     create(data,(err,data)=>{
         if (err){
             res.json({
@@ -123,15 +126,54 @@ app.post("/crud",(req,res)=>{
 
 })
 
+app.post("/pcrud",(req,res)=>{
+    const data =req.body;
+    console.log("Data post body",data);
+   createPromise(data).then(result=>{
+    res.json({
+        message:"success",
+    })
+   }).catch(err=>{
+    res.json({
+        message:"failed",
+        error:err
+    })
+
+   })
+    
+
+})
+
 app.get("/crud",(req,res)=>{
+    GetPromise().then(data=>{
+        res.json({
+            data
+        })
+    }).catch(err=>{
+        res.json({
+            err:err
+        })
+    })
     
 })
 
 app.put("/crud",(req,res)=>{
+    res.json({
+        message:"Put operation called"
+    })
     
 })
 
-app.delete("/crud",(req,res)=>{
+app.delete("/crud/:id",(req,res)=>{
+    DeletePromise(req.params.id).then(result=>{
+        res.json({
+            message:"Deleted Success fully"
+        })
+    }).catch(err=>{
+        res.json({
+            err:err
+        })
+    })
     
 })
 // it should be at the bottom most level
