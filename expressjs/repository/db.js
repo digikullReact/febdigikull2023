@@ -1,11 +1,12 @@
 const fs=require("fs");
 const path = require("path");
 
-const create=(data)=>{
+const create=(data,cb)=>{
     console.log(__dirname)
     // Firsty we have to get the data from the file
-    fs.readFile(path.join(__dirname,"db.txt"),"utf-8",(err,fileData)=>{
+    fs.readFile(path.join(__dirname,"db.tx"),"utf-8",(err,fileData)=>{
         if(err){
+            cb(err,null);
             console.log(err);
             return err;
         }
@@ -17,10 +18,12 @@ const create=(data)=>{
                //the save the data in the file again
                fs.writeFile(path.join(__dirname,"db.txt"),JSON.stringify(fileDataParsed),(err,result)=>{
                    if (err){
-                        console.log(err);
+                    cb(err,null);
+                        //console.log(err);
                         return ;
                    }
-                   console.log("Saved In file")
+                   cb(null,"success");
+                  // console.log("Saved In file")
                   
                })
 
@@ -28,9 +31,13 @@ const create=(data)=>{
 
             fs.writeFile(path.join(__dirname,"db.txt"),JSON.stringify([data]),(err,result)=>{
                 if (err){
+                    cb(err,null);
+
                      console.log(err);
                      return ;
                 }
+                cb(null,"success");
+
                 console.log("Saved In file")
                
             })

@@ -104,10 +104,22 @@ app.get("/url",(req,res)=>{
 app.post("/crud",(req,res)=>{
     const data =req.body;
     console.log("Data post body",data);
-    create(data)
-    res.json({
-        message:"success"
-    })
+    create(data,(err,data)=>{
+        if (err){
+            res.json({
+                message:"failed",
+                error:err
+            })
+
+            return
+        }
+
+        res.json({
+            message:"success",
+        })
+
+    })  // asynchrnous function
+    
 
 })
 
