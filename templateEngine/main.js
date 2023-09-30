@@ -1,3 +1,4 @@
+const   axios  = require("axios");
 const express=require("express");
 const app=express();
 const {engine}=require("express-handlebars");
@@ -57,6 +58,15 @@ app.get("/table",(req,res)=>{
  * And render the products in template engine using this
  * template -https://getbootstrap.com/docs/5.3/examples/album/
  */
+app.get("/ecommerce",(req,res)=>{
+    axios.get("https://fakestoreapi.com/products").then(products=>{
+        res.render("products",{result:products.data});
+
+    }).catch(err=>{
+        console.log(err);
+    })
+
+})
 app.listen(5050,()=>{
     console.log("Server Running at port ",5050)
 })
