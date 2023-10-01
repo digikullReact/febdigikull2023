@@ -27,8 +27,20 @@ const PasswordEncryption=(req,res,next)=>{
 
 }
 
+const ApplevelMiddleware=(req,res,next)=>{
+    console.log("App level middleware called");
+    next();
+}
+
+const RouteslevelMiddleware=(req,res,next)=>{
+    console.log("Routes level middleware called");
+    next();
+}
+
 module.exports={
     m1,
     m2,
-    PasswordEncryption
+    PasswordEncryption,
+    ApplevelMiddleware,
+    RouteslevelMiddleware
 }
