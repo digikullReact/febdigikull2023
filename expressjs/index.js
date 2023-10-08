@@ -3,7 +3,7 @@ const fs=require("fs");
 const path=require("path");
 const app=express();
 const { v4: uuidv4 } = require('uuid');
-const {m1,m2, ApplevelMiddleware, ErrorMiddleware}=require("./middlewares/middlewares");
+const {m1,m2, ApplevelMiddleware, ErrorMiddleware, JWTMiddleware}=require("./middlewares/middlewares");
 const { PasswordEncryptionController } = require("./controllers/controller");
 const CrudRouter=require("./routes/crud");
 const DefaultRouter=require("./routes/default")
@@ -18,9 +18,11 @@ app.use(ApplevelMiddleware)
 app.use("/",DefaultRouter);
 
 // crud routes
-
-app.use("/crud",CrudRouter);
 app.use("/auth",authRouter)
+
+app.use(JWTMiddleware);
+app.use("/crud",CrudRouter);
+
 
 
 

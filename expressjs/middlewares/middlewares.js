@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const  jwt = require('jsonwebtoken');
+
 const saltRounds = 10;
 
 const m1=(req,res,next)=>{
@@ -44,11 +46,42 @@ const ErrorMiddleware=(err, req, res, next) => {
     });
   }
 
+  const JWTMiddleware=(req,res,next)=>{
+    // Check for the token 
+    const token=req.headers["authorization"];
+   // console.log(req.headers)
+
+    if(!token){
+        res.status(401).
+        json({
+            message:"Please provide valid token"
+        })
+
+        return
+    }else{
+
+        // Check for valid token as well 
+        try {
+            var decoded = jwt.verify(token, 'shhhhh');
+            console.log(decoded);
+            next();
+          } catch(err) {
+            console.log(err);
+            // err
+            next("Invalid token")
+          }        
+
+        //next();
+    }
+
+  }
+
 module.exports={
     m1,
     m2,
     PasswordEncryption,
     ApplevelMiddleware,
     RouteslevelMiddleware,
-    ErrorMiddleware
+    ErrorMiddleware,
+    JWTMiddleware
 }
