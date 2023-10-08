@@ -8,6 +8,7 @@ const { PasswordEncryptionController } = require("./controllers/controller");
 const CrudRouter=require("./routes/crud");
 const DefaultRouter=require("./routes/default")
 const middleWareRouter=require("./routes/middlewareroute");
+const authRouter=require("./routes/auth");
 app.use(express.json());  // middleware to parse the data coming from user in req body
 
 app.use(ApplevelMiddleware)
@@ -17,6 +18,7 @@ app.use("/",DefaultRouter);
 // crud routes
 
 app.use("/crud",CrudRouter);
+app.use("/auth",authRouter)
 
 
 
