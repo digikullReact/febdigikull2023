@@ -3,12 +3,14 @@ const fs=require("fs");
 const path=require("path");
 const app=express();
 const { v4: uuidv4 } = require('uuid');
-const {m1,m2, ApplevelMiddleware}=require("./middlewares/middlewares");
+const {m1,m2, ApplevelMiddleware, ErrorMiddleware}=require("./middlewares/middlewares");
 const { PasswordEncryptionController } = require("./controllers/controller");
 const CrudRouter=require("./routes/crud");
 const DefaultRouter=require("./routes/default")
 const middleWareRouter=require("./routes/middlewareroute");
 const authRouter=require("./routes/auth");
+const cors=require("cors");
+app.use(cors());
 app.use(express.json());  // middleware to parse the data coming from user in req body
 
 app.use(ApplevelMiddleware)
@@ -31,10 +33,14 @@ app.get("*",(req,res)=>{
     res.send("404 Not found");
 })
 
+app.use(ErrorMiddleware)
+
 
 app.listen(8090,()=>{
     console.log("Server Running on port 8090")
 })
+
+
 
 /**
  * Create a middlware that checks for password length and checks for valid email

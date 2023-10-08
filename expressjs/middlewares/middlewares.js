@@ -37,10 +37,18 @@ const RouteslevelMiddleware=(req,res,next)=>{
     next();
 }
 
+const ErrorMiddleware=(err, req, res, next) => {
+   // console.error(err.stack)
+    res.status(500).json({
+      error:  err.toString()
+    });
+  }
+
 module.exports={
     m1,
     m2,
     PasswordEncryption,
     ApplevelMiddleware,
-    RouteslevelMiddleware
+    RouteslevelMiddleware,
+    ErrorMiddleware
 }
