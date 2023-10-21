@@ -15,6 +15,24 @@ const Controller={
     
     },
 
+    GetPaginated:(req,res)=>{
+        const pageSize=req.query["pageSize"];
+        const offset=req.query["page"];
+        const search=req.query["search"];
+        //console.log(search);
+
+        Repository.FindAllPagination(pageSize,(offset-1),search).then(result=>{
+            res.json({
+                data:result
+            })
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
+    
+    },
+
     GetOne:(req,res)=>{
         Repository.FindOne(req.params.id).then(result=>{
             res.json({
@@ -42,11 +60,67 @@ const Controller={
 
     
     },
+
+    PostMany:(req,res)=>{
+        const body=req.body;
+        Repository.InsertMany(body).then(result=>{
+            res.json({
+                message:"Success",
+                result
+            })
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
+
+    
+    },
     Put:(req,res)=>{
+        const body=req.body;
+        const id=req.params.id;
+        Repository.UpdateOne(body,id).then(result=>{
+            res.json({
+                message:"Success",
+                result
+            })
+
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
+    
+    },
+
+    PutMany:(req,res)=>{
+        const body=req.body;
+        Repository.UpdateMany(body.name,body).then(result=>{
+            res.json({
+                message:"Success",
+                result
+            })
+
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
     
     },
     Delete:(req,res)=>{
-    
+        const id=req.params.id;
+        Repository.DeleteOne(id).then(result=>{
+            res.json({
+                message:"Success",
+                result
+            })
+
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
     },
 
     
