@@ -7,9 +7,10 @@ const Repository={
     },
 
     // skip and limit
-    FindAllPagination:(pageSize,offset,search)=>{
-
-      return  User.find({name:new RegExp(search,'i')}).skip(offset).limit(pageSize)
+    FindAllPagination:(pageSize,offset,search,sort)=>{
+ 
+      return  User.find({name:new RegExp(search,'i')}).skip(offset)
+      .limit(pageSize).sort({name:parseInt(sort)})
 
     },
 

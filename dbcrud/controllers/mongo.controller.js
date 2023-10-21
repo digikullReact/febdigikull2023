@@ -19,9 +19,10 @@ const Controller={
         const pageSize=req.query["pageSize"];
         const offset=req.query["page"];
         const search=req.query["search"];
-        //console.log(search);
+        const sort=req.query["sort"];
+        //console.log(sort);
 
-        Repository.FindAllPagination(pageSize,(offset-1),search).then(result=>{
+        Repository.FindAllPagination(pageSize,(offset-1),search,sort).then(result=>{
             res.json({
                 data:result
             })
