@@ -7,10 +7,16 @@ const Repository={
     },
 
     // skip and limit
-    FindAllPagination:(pageSize,offset,search,sort)=>{
+    FindAllPagination:async (pageSize,offset,search,sort)=>{
  
-      return  User.find({name:new RegExp(search,'i')}).skip(offset)
+   const data=await  User.find({name:new RegExp(search,'i')}).skip(offset)
       .limit(pageSize).sort({name:parseInt(sort)})
+      const count=await User.count(); // it will return the total number of records
+
+      return{
+        data:data,
+        count:count
+      }
 
     },
 
