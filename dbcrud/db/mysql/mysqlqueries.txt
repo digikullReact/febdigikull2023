@@ -1,0 +1,20 @@
+//Create
+INSERT INTO users (name,email)
+VALUES ("shubham","lk@yahoo.com");
+
+
+SELECT name FROM `users`  returns name column only
+SELECT * FROM `users` return all columns
+
+SELECT name FROM `users`WHERE   id=1 # will return 1 column with id =1
+
+SELECT * FROM `users` LIMIT 2  # will return only 2 records 
+
+
+SELECT * FROM `users` LIMIT 2 OFFSET 2  # will return 2 records and skips first 2 records
+
+UPDATE users SET name="logan" ,email="logan@yahoo.com" WHERE id=1  #update query
+
+UPDATE users SET name="logan" ,email="logan@yahoo.com" WHERE id=1 AND name="logan" #multiple conditions
+
+DELETE FROM users WHERE id=1; # deletes record where id=1
