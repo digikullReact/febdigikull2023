@@ -34,7 +34,13 @@ const sequelize = new Sequelize('digikull', 'admin', 'sA1VeFK7', {
  }
 
  const readAllUser=async (pageSize,offset,search,sort)=>{
-  return await User.findAll(); // you have to add pagination to it 
+  return await User.findAll({limit:pageSize,offset:offset,order:['name','DESC']
+    
+  },{
+    where:{
+      name:`%${search}`
+    }
+  }); // you have to add pagination to it 
 }
 
   const updateUser=async (body,id)=>{
