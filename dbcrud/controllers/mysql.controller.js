@@ -1,4 +1,4 @@
-const {CreateUser, readUser, readAllUser, updateUser, deleteUser} = require("../db/mysql/mysql");
+const {CreateUser, readUser, readAllUser, updateUser, deleteUser, upsertUser} = require("../db/mysql/mysql");
 
 
 const MysqlController={
@@ -85,6 +85,23 @@ const MysqlController={
         const body=req.body;
         const id=req.params.id;
         updateUser(body,id).then(result=>{
+            res.json({
+                message:"Success",
+                result
+            })
+
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
+    
+    },
+
+    Upsert:(req,res)=>{
+        const body=req.body;
+        const id=req.params.id;
+        upsertUser(body,id).then(result=>{
             res.json({
                 message:"Success",
                 result

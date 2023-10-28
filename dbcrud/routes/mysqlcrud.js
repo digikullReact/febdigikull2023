@@ -16,6 +16,8 @@ router.post("/",Controller.Post)
 
 router.put("/:id",Controller.Put)
 
+router.patch("/:id",Controller.Upsert)
+
 
 
 router.delete("/:id",Controller.Delete)

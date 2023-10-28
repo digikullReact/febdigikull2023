@@ -47,6 +47,17 @@ const sequelize = new Sequelize('digikull', 'admin', 'sA1VeFK7', {
 
   }
 
+  const upsertUser=async (body,id)=>{
+    return await User.upsert({name:body.name,email:body.email,id:id},{
+      where: {
+        id: id
+      }
+    })
+
+
+  }
+
+
 
   const deleteUser=async (id)=>{
     return await User.destroy({
@@ -67,5 +78,7 @@ const sequelize = new Sequelize('digikull', 'admin', 'sA1VeFK7', {
     readUser,
     updateUser,
     deleteUser,
-    readAllUser
+    readAllUser,
+    upsertUser,
+    upsertUser
   }
