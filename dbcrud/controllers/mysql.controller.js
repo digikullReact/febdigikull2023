@@ -1,4 +1,4 @@
-const {CreateUser} = require("../db/mysql/mysql");
+const {CreateUser, readUser, readAllUser, updateUser, deleteUser} = require("../db/mysql/mysql");
 
 
 const MysqlController={
@@ -22,7 +22,7 @@ const MysqlController={
         const sort=req.query["sort"];
         //console.log(sort);
 
-        Repository.FindAllPagination(pageSize,(offset-1),search,sort).then(result=>{
+        readAllUser(pageSize,(offset-1),search,sort).then(result=>{
             res.json({
                 data:result
             })
@@ -35,15 +35,18 @@ const MysqlController={
     },
 
     GetOne:(req,res)=>{
-        Repository.FindOne(req.params.id).then(result=>{
-            res.json({
-                data:result
-            })
-        }).catch(err=>{
-            res.json({
-                error:err
-            })
+        const id=req.params.id;
+        console.log(id);
+       readUser(id).then(data=>{
+        res.json({
+            data:data
         })
+
+       }).catch(err=>{
+        res.json({
+            error:err
+        })
+       })
     
     },
     Post:(req,res)=>{
@@ -81,7 +84,7 @@ const MysqlController={
     Put:(req,res)=>{
         const body=req.body;
         const id=req.params.id;
-        Repository.UpdateOne(body,id).then(result=>{
+        updateUser(body,id).then(result=>{
             res.json({
                 message:"Success",
                 result
@@ -112,7 +115,7 @@ const MysqlController={
     },
     Delete:(req,res)=>{
         const id=req.params.id;
-        Repository.DeleteOne(id).then(result=>{
+        deleteUser(id).then(result=>{
             res.json({
                 message:"Success",
                 result

@@ -24,10 +24,48 @@ const sequelize = new Sequelize('digikull', 'admin', 'sA1VeFK7', {
 
 
   }
+
+  const readUser=async (id)=>{
+    return await User.findOne({
+      where:{
+        id:id
+      }
+    })
+ }
+
+ const readAllUser=async (pageSize,offset,search,sort)=>{
+  return await User.findAll(); // you have to add pagination to it 
+}
+
+  const updateUser=async (body,id)=>{
+    return await User.update({name:body.name,email:body.email},{
+      where: {
+        id: id
+      }
+    })
+
+
+  }
+
+
+  const deleteUser=async (id)=>{
+    return await User.destroy({
+      where: {
+        id: id
+      }
+    })
+}
+
+
+
   
 
 
   module.exports={
     sequelize,
-    CreateUser
+    CreateUser,
+    readUser,
+    updateUser,
+    deleteUser,
+    readAllUser
   }
