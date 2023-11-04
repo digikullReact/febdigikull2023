@@ -15,7 +15,7 @@ const port=process.env.PORT || 8010
       }
 
 }
-ConnectMysql();
+//ConnectMysql();
 
 mongoose.connect("mongodb+srv://parishk1024:GankoGotNoChill@mern-auth.ye9s3uc.mongodb.net/digikull?retryWrites=true&w=majority")
 .then(res=>{

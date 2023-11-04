@@ -12,11 +12,34 @@ const userSchema = new Schema({
       unique: true 
 
     },
+    salary:Number,
     password:String,
     date: { type: Date, default: Date.now },
     
   });
   const userModel=mongoose.model("user",userSchema);
+
+  // hooks 
+
+  userSchema.pre('save',async function(next){
+    const user =this;
+     if (user.isModified('password')){
+      // hash the password
+      user.password="hashed password function"
+     }
+
+     next();
+
+  })
+
+  userSchema.post('save',async function(next){
+   console.log("user saved")
+    
+
+
+  })
+
+
  module.exports=userModel;
 
 

@@ -124,6 +124,38 @@ const Controller={
         })
     },
 
+
+    AggregateController:(req,res)=>{
+        const name=req.body.name;
+        console.log(name);
+        Repository.SumSalary(name).then(result=>{
+            res.json({
+                message:"Success",
+                result
+            })
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
+
+    },
+
+    DeleteAllObjects:(req,res)=>{
+        
+        Repository.DeleteAll().then(result=>{
+            res.json({
+                message:"Success",
+                result
+            })
+        }).catch(err=>{
+            res.json({
+                error:err
+            })
+        })
+
+    }
+
     
 }
 

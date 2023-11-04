@@ -52,8 +52,54 @@ const Repository={
    DeleteMany:(name,body)=>{
     return User.updateMany({name:name});
 
- }
+ },
 
+ DeleteAll:()=>{
+  return User.deleteMany();
+
+},
+
+ /**
+  * $project
+  * $match  // which exactly works like filtering
+$group
+$sort
+$skip & $limit
+$first & $last
+$unwind
+  */
+/*
+ SumSalary:(name)=>{
+  return User.aggregate([
+    {
+      $match:{name:name}
+    }
+
+  ])
+
+
+ }
+ */
+
+ SumSalary:(name)=>{
+  return User.aggregate([
+    {
+      $group:{
+        "_id":null,
+        totalSalary:{$sum:"$salary"},
+     
+      }
+    },{
+      $project:{
+        _id:0 ,// excluding the _id from the output
+        totalSalary:1
+      }
+    }
+
+  ])
+
+
+ }
 
 
 
@@ -62,5 +108,8 @@ const Repository={
 
 
 // Name ---> //city 
+// Task---->
+// The average salary 
+// Try to find the total count of employees using aggregation pipeline
 
 module.exports=Repository;

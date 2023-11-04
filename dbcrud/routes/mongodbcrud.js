@@ -7,6 +7,11 @@ router.get("/pagination",Controller.GetPaginated)
 router.put("/updateMany",Controller.PutMany)
 router.post("/insertMany",Controller.PostMany)
 
+router.post("/aggregate",Controller.AggregateController)
+router.post("/deleteAll",Controller.DeleteAllObjects)
+
+
+
 
 
 router.get("/:id",Controller.GetOne)
